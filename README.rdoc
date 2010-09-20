@@ -1,6 +1,7 @@
 = stylo
 
-Description goes here.
+Stylo aims to support server side combining of stylesheets within rails when hosted in an environment
+such as www.heroku.com where we have the problem of a read only file system.
 
 == Note on Patches/Pull Requests
  
