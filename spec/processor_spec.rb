@@ -43,23 +43,35 @@ describe Stylo::Processor do
         background: #ffffff;
       }}
       write_content(File.join(@stylesheets_path, 'test.css'), @stylesheet_content)
-
-      @child_stylesheet_content = %Q{#child html {
-        background: #000000;
-      }}
-      write_content(File.join(@stylesheets_path, 'child.css'), @child_stylesheet_content)
     end
 
-    it "should include the contents of the references stylesheet in the processed stylesheet" do
-      result = @processor.process_stylesheet('stylesheets/test.css')
+    describe "and the imported stylesheet exists" do
+      before(:each) do
+        @child_stylesheet_content = %Q{#child html {
+          background: #000000;
+        }}
+        write_content(File.join(@stylesheets_path, 'child.css'), @child_stylesheet_content)
+      end
 
-      result.should == %Q{#child html {
-        background: #000000;
-      }
+      it "should include the contents of the references stylesheet in the processed stylesheet" do
+        result = @processor.process_stylesheet('stylesheets/test.css')
+
+        result.should == %Q{#child html {
+          background: #000000;
+        }
 
       #parent {
         background: #ffffff;
       }}
+      end
+    end
+
+    describe "and the imported stylesheet does not exist" do
+      it "should not replace the @import statement" do
+        result = @processor.process_stylesheet('stylesheets/test.css')
+
+        result.should == @stylesheet_content
+      end
     end
   end
 end

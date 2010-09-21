@@ -19,9 +19,14 @@ module Stylo
     private
 
     def process_requires(contents, base_path)
-        contents.gsub /@import "(.*)";/ do |match|
-          process_requires(File.read(File.join(base_path, $1)), base_path)
+      contents.gsub /@import "(.*)";/ do |match|
+        import_path = File.join(base_path, $1)
+        if File.exists? import_path
+          process_requires(File.read(import_path), base_path)
+        else
+          "@import \"#{$1}\";"
         end
       end
+    end
   end
 end
