@@ -9,7 +9,7 @@ module Stylo
 
       if path =~ /\.css\z/
         processor = Processor.new
-        content = processor.process_template(path)
+        content = processor.process_stylesheet(path)
 
         stylesheet_response(content)
       else

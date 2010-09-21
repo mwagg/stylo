@@ -14,11 +14,11 @@ describe Stylo::Rack do
     before(:each) do
       env['PATH_INFO'] = 'stylesheets/style.css'
       @processor_response = 'this is the response from the processor'
-      processor.stub(:process_template).and_return(@processor_response)
+      processor.stub(:process_stylesheet).and_return(@processor_response)
     end
 
     it "should ask the processor to process the path" do
-      processor.should_receive(:process_template).with('stylesheets/style.css')
+      processor.should_receive(:process_stylesheet).with('stylesheets/style.css')
       rack.call(env)
     end
 
@@ -37,7 +37,7 @@ describe Stylo::Rack do
       content_type(response).should == 'text/css'
     end
 
-    it "should set the content length to the length of the processed template" do
+    it "should set the content length to the length of the processed stylesheet" do
       response = rack.call(env)
       content_length(response).should == @processor_response.length.to_s
     end
@@ -47,7 +47,7 @@ describe Stylo::Rack do
       cache_control(response).should == "public, max-age=86400"
     end
 
-    it "should set the content to be the processed template" do
+    it "should set the content to be the processed stylesheet" do
       response = rack.call(env)
       content(response).should == @processor_response
     end
@@ -56,7 +56,7 @@ describe Stylo::Rack do
   describe "when requesting something other than a stylesheet" do
     it "should not ask the processor to process the request" do
       app.stub(:call)
-      processor.should_not_receive(:process_template)
+      processor.should_not_receive(:process_stylesheet)
 
       env['PATH_INFO'] = 'javascripts/foo.js'
       rack.call(env)
