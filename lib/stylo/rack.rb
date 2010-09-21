@@ -11,10 +11,12 @@ module Stylo
         processor = Processor.new
         content = processor.process_stylesheet(path)
 
-        stylesheet_response(content)
-      else
-        @app.call(env)
+        if !content.nil?
+          return stylesheet_response(content)
+        end
       end
+
+      @app.call(env)
     end
 
     private

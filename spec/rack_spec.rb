@@ -11,45 +11,57 @@ describe Stylo::Rack do
   end
 
   describe "when requesting a stylesheet" do
-    before(:each) do
-      env['PATH_INFO'] = 'stylesheets/style.css'
-      @processor_response = 'this is the response from the processor'
-      processor.stub(:process_stylesheet).and_return(@processor_response)
+    describe "and the stylesheet can be processed" do
+      before(:each) do
+        env['PATH_INFO'] = 'stylesheets/style.css'
+        @processor_response = 'this is the response from the processor'
+        processor.stub(:process_stylesheet).and_return(@processor_response)
+      end
+
+      it "should ask the processor to process the path" do
+        processor.should_receive(:process_stylesheet).with('stylesheets/style.css')
+        rack.call(env)
+      end
+
+      it "should not pass the call back to the app" do
+        app.should_not_receive(:call)
+        rack.call(env)
+      end
+
+      it "should return a 200 OK response" do
+        response = rack.call(env)
+        status_code(response).should == 200
+      end
+
+      it "should set the content type to text/css" do
+        response = rack.call(env)
+        content_type(response).should == 'text/css'
+      end
+
+      it "should set the content length to the length of the processed stylesheet" do
+        response = rack.call(env)
+        content_length(response).should == @processor_response.length.to_s
+      end
+
+      it "should set the content to be cached for 1 day" do
+        response = rack.call(env)
+        cache_control(response).should == "public, max-age=86400"
+      end
+
+      it "should set the content to be the processed stylesheet" do
+        response = rack.call(env)
+        content(response).should == @processor_response
+      end
     end
 
-    it "should ask the processor to process the path" do
-      processor.should_receive(:process_stylesheet).with('stylesheets/style.css')
-      rack.call(env)
-    end
+    describe "and the stylesheet cannot be processed" do
+      it "should pass the call back to the app" do
+        env['PATH_INFO'] = 'stylesheets/style.css'
+        processor.stub(:process_stylesheet).and_return(nil)
+        app.should_receive(:call).with(env)
 
-    it "should not pass the call back to the app" do
-      app.should_not_receive(:call)
-      rack.call(env)
-    end
-
-    it "should return a 200 OK response" do
-      response = rack.call(env)
-      status_code(response).should == 200
-    end
-
-    it "should set the content type to text/css" do
-      response = rack.call(env)
-      content_type(response).should == 'text/css'
-    end
-
-    it "should set the content length to the length of the processed stylesheet" do
-      response = rack.call(env)
-      content_length(response).should == @processor_response.length.to_s
-    end
-
-    it "should set the content to be cached for 1 day" do
-      response = rack.call(env)
-      cache_control(response).should == "public, max-age=86400"
-    end
-
-    it "should set the content to be the processed stylesheet" do
-      response = rack.call(env)
-      content(response).should == @processor_response
+        rack.call(env)
+      end
     end
   end
 

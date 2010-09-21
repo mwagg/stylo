@@ -7,6 +7,7 @@ describe Stylo::Processor do
     mkdir_p @stylesheets_path
 
     Stylo::Config.public_location = temp_path()
+    @processor = Stylo::Processor.new
   end
 
   describe "when processing a stylesheet" do
@@ -21,10 +22,17 @@ describe Stylo::Processor do
       end
 
       it "should return the contents of the stylesheet" do
-        processor = Stylo::Processor.new
-        result = processor.process_stylesheet('stylesheets/test.css')
+        result = @processor.process_stylesheet('stylesheets/test.css')
 
         result.should == @stylesheet_content
+      end
+    end
+
+    describe "and the stylesheet does not exist" do
+      it "should return nil" do
+        result = @processor.process_stylesheet('stylesheets/test.css')
+
+        result.should be_nil
       end
     end
   end

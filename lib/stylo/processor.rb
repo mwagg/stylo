@@ -1,7 +1,13 @@
 module Stylo
   class Processor
     def process_stylesheet(stylesheet)
-      File.read File.join(Stylo::Config.public_location, stylesheet)
+      stylesheet_path = File.join(Stylo::Config.public_location, stylesheet)
+
+      if File.exist? stylesheet_path
+        File.read stylesheet_path
+      else
+        nil
+      end
     end
   end
 end
