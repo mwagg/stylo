@@ -9,10 +9,23 @@ module Stylo
 
       if path =~ /\.css\z/
         processor = Processor.new
-        processor.process_template(path)
+        content = processor.process_template(path)
+
+        stylesheet_response(content)
       else
         @app.call(env)
       end
+    end
+
+    private
+
+    def stylesheet_response(stylesheet_content)
+      [200,
+          {
+                  'Cache-Control' => 'public, max-age=86400',
+                  'Content-Length' => stylesheet_content.length.to_s,
+                  'Content-Type' => 'text/css'
+          }, stylesheet_content]
     end
   end
 end
