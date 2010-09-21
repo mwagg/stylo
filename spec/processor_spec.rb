@@ -13,11 +13,9 @@ describe Stylo::Processor do
   describe "when processing a stylesheet" do
     describe "and the stylesheet exists" do
       before(:each) do
-        @stylesheet_content = %Q{
-          html {
-            background: #000000;
-          }
-        }
+        @stylesheet_content = %Q{html {
+          background: #000000;
+        }}
         write_content(File.join(@stylesheets_path, 'test.css'), @stylesheet_content)
       end
 
@@ -34,6 +32,34 @@ describe Stylo::Processor do
 
         result.should be_nil
       end
+    end
+  end
+
+  describe "when the stylesheet imports another stylesheet" do
+    before(:each) do
+      @stylesheet_content = %Q{@import "child.css";
+
+      #parent {
+        background: #ffffff;
+      }}
+      write_content(File.join(@stylesheets_path, 'test.css'), @stylesheet_content)
+
+      @child_stylesheet_content = %Q{#child html {
+        background: #000000;
+      }}
+      write_content(File.join(@stylesheets_path, 'child.css'), @child_stylesheet_content)
+    end
+
+    it "should include the contents of the references stylesheet in the processed stylesheet" do
+      result = @processor.process_stylesheet('stylesheets/test.css')
+
+      result.should == %Q{#child html {
+        background: #000000;
+      }
+
+      #parent {
+        background: #ffffff;
+      }}
     end
   end
 end
