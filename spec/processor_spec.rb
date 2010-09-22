@@ -2,11 +2,8 @@ require 'spec_helper'
 
 describe Stylo::Processor do
   before(:each) do
-    @stylesheets_path = temp_path('stylesheets')
-    rm_rf @stylesheets_path
-    mkdir_p @stylesheets_path
+    reset_stylesheet_paths
 
-    Stylo::Config.public_location = temp_path()
     @processor = Stylo::Processor.new
   end
 

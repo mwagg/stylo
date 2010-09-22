@@ -15,6 +15,14 @@ module StyloSpecHelpers
       f.write(content)
     end
   end
+
+  def reset_stylesheet_paths
+    @stylesheets_path = temp_path('stylesheets')
+    rm_rf @stylesheets_path
+    mkdir_p @stylesheets_path
+
+    Stylo::Config.public_location = temp_path()
+  end
 end
 
 Spec::Runner.configure do |config|

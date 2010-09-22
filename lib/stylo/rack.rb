@@ -2,14 +2,14 @@ module Stylo
   class Rack
     def initialize(app)
       @app = app
+      @processor = Processor.new
     end
 
     def call(env)
       path = env["PATH_INFO"]
 
       if path =~ /\.css\z/
-        processor = Processor.new
-        content = processor.process_stylesheet(path)
+        content = @processor.process_stylesheet(path)
 
         if !content.nil?
           return stylesheet_response(content)
