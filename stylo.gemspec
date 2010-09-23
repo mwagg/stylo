@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stylo}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["mwagg"]
-  s.date = %q{2010-09-22}
+  s.date = %q{2010-09-23}
   s.description = %q{Server side stylesheet combining for readonly hosting environments}
   s.email = %q{michael@guerillatactics.co.uk}
   s.extra_rdoc_files = [
@@ -28,8 +28,10 @@ Gem::Specification.new do |s|
      "lib/stylo/processor.rb",
      "lib/stylo/rack.rb",
      "lib/stylo/railtie.rb",
+     "lib/stylo/sass.rb",
      "spec/processor_spec.rb",
      "spec/rack_spec.rb",
+     "spec/sass_spec.rb",
      "spec/spec_helper.rb",
      "stylo.gemspec"
   ]
