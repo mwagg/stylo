@@ -1,5 +1,11 @@
 module Stylo
   class Processor
+    def initialize
+      if Stylo::Config.enable_sass
+        self.extend Stylo::Sass
+      end
+    end
+
     def get_stylesheet_path(stylesheet)
       File.join(Stylo::Config.public_location, stylesheet)
     end

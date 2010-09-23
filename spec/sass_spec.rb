@@ -4,8 +4,8 @@ describe Stylo::Sass do
   before(:each) do
     reset_stylesheet_paths
 
+    Stylo::Config.enable_sass = true
     @processor = Stylo::Processor.new
-    @processor.extend Stylo::Sass
   end
 
   describe "get_file_content" do
