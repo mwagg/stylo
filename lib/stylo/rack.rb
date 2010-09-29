@@ -9,7 +9,7 @@ module Stylo
       path = env["PATH_INFO"]
 
       if path =~ /\.css\z/
-        content = @processor.process_stylesheet(path)
+        content = @processor.process_asset(path)
 
         if !content.nil?
           return stylesheet_response(content)

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Stylo::Sass do
   before(:each) do
-    reset_stylesheet_paths
+    reset_paths
 
     Stylo::Config.enable_sass = true
     @processor = Stylo::Processor.new
@@ -46,7 +46,7 @@ describe Stylo::Sass do
 
       write_content(File.join(@stylesheets_path, 'test.css'), @stylesheet_content)
 
-      result = @processor.process_stylesheet('stylesheets/test.css')
+      result = @processor.process_asset('stylesheets/test.css')
 
       result.should == "html {\n  background: lime; }\n"
     end

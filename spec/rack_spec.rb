@@ -15,11 +15,11 @@ describe Stylo::Rack do
       before(:each) do
         env['PATH_INFO'] = 'stylesheets/style.css'
         @processor_response = 'this is the response from the processor'
-        processor.stub(:process_stylesheet).and_return(@processor_response)
+        processor.stub(:process_asset).and_return(@processor_response)
       end
 
       it "should ask the processor to process the path" do
-        processor.should_receive(:process_stylesheet).with('stylesheets/style.css')
+        processor.should_receive(:process_asset).with('stylesheets/style.css')
         rack.call(env)
       end
 
@@ -57,7 +57,7 @@ describe Stylo::Rack do
     describe "and the stylesheet cannot be processed" do
       it "should pass the call back to the app" do
         env['PATH_INFO'] = 'stylesheets/style.css'
-        processor.stub(:process_stylesheet).and_return(nil)
+        processor.stub(:process_asset).and_return(nil)
         app.should_receive(:call).with(env)
 
         rack.call(env)
@@ -68,7 +68,7 @@ describe Stylo::Rack do
   describe "when requesting something other than a stylesheet" do
     it "should not ask the processor to process the request" do
       app.stub(:call)
-      processor.should_not_receive(:process_stylesheet)
+      processor.should_not_receive(:process_asset)
 
       env['PATH_INFO'] = 'javascripts/foo.js'
       rack.call(env)

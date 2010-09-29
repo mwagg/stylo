@@ -16,10 +16,13 @@ module StyloSpecHelpers
     end
   end
 
-  def reset_stylesheet_paths
+  def reset_paths
     @stylesheets_path = temp_path('stylesheets')
-    rm_rf @stylesheets_path
-    mkdir_p @stylesheets_path
+    @javascripts_path = temp_path('javascripts')
+    [@stylesheets_path, @javascripts_path].each do |path|
+      rm_rf path
+      mkdir_p path
+    end
 
     Stylo::Config.public_location = temp_path()
   end

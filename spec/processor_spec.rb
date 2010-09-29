@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Stylo::Processor do
   before(:each) do
-    reset_stylesheet_paths
+    reset_paths
 
     @processor = Stylo::Processor.new
   end
@@ -17,7 +17,7 @@ describe Stylo::Processor do
       end
 
       it "should return the contents of the stylesheet" do
-        result = @processor.process_stylesheet('stylesheets/test.css')
+        result = @processor.process_asset('stylesheets/test.css')
 
         result.should == @stylesheet_content
       end
@@ -25,7 +25,7 @@ describe Stylo::Processor do
 
     describe "and the stylesheet does not exist" do
       it "should return nil" do
-        result = @processor.process_stylesheet('stylesheets/test.css')
+        result = @processor.process_asset('stylesheets/test.css')
 
         result.should be_nil
       end
@@ -51,7 +51,7 @@ describe Stylo::Processor do
       end
 
       it "should include the contents of the references stylesheet in the processed stylesheet" do
-        result = @processor.process_stylesheet('stylesheets/test.css')
+        result = @processor.process_asset('stylesheets/test.css')
 
         result.should == %Q{#child {
           background: #000000;
@@ -78,9 +78,9 @@ describe Stylo::Processor do
         end
 
         it "should import all the stylesheets into the processed stylesheet" do
-          result = @processor.process_stylesheet('stylesheets/test.css')
+          result = @processor.process_asset('stylesheets/test.css')
 
-            result.should == %Q{#grandchild {
+          result.should == %Q{#grandchild {
             background: #000000;
           }
 
@@ -96,10 +96,69 @@ describe Stylo::Processor do
     end
 
     describe "and the imported stylesheet does not exist" do
-      it "should not replace the @import statement" do
-        result = @processor.process_stylesheet('stylesheets/test.css')
+      it "should raise an error" do
+        proc { result = @processor.process_asset('stylesheets/test.css') }.should raise_error "Cannot find file to import 'child.css'."
+      end
+    end
+  end
 
-        result.should == @stylesheet_content
+  describe "when the javascript imports another javascript file" do
+    before(:each) do
+      @javascript_content = %Q{///include "child.js";
+
+      function parent() {
+        alert('parent');
+      }}
+      write_content(File.join(@javascripts_path, 'test.js'), @javascript_content)
+    end
+
+    describe "and the imported javascript file exists" do
+      before(:each) do
+        @child_javascript_content = %Q{function child() {
+          alert('child');
+        }}
+        write_content(File.join(@javascripts_path, 'child.js'), @child_javascript_content)
+      end
+
+      it "should include the contents of the referenced javascript file in the processed javascript" do
+        result = @processor.process_asset('javascripts/test.js')
+
+        result.should == %Q{function child() {
+          alert('child');
+        }
+
+      function parent() {
+        alert('parent');
+      }}
+      end
+    end
+
+    describe "and the imported javascript file does not exist" do
+      it "should raise an error" do
+        proc { result = @processor.process_asset('javascripts/test.js') }.should raise_error "Cannot find file to import 'child.js'."
+      end
+    end
+  end
+
+  describe "when processing a javascript file" do
+    describe "and the javascript file exists" do
+      before(:each) do
+        @javascript_content = "function sayHello() { alert('hello');}"
+        write_content(File.join(@javascripts_path, 'test.js'), @javascript_content)
+      end
+
+      it "should return the contents of the javascript file" do
+        result = @processor.process_asset('javascripts/test.js')
+
+        result.should == @javascript_content
+      end
+    end
+
+    describe "and the javascript file does not exist" do
+      it "should return nil" do
+        result = @processor.process_asset('javascripts/test.js')
+
+        result.should be_nil
       end
     end
   end
