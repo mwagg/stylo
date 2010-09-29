@@ -51,4 +51,15 @@ describe Stylo::Sass do
       result.should == "html {\n  background: lime; }\n"
     end
   end
+
+  describe "when processing javascript" do
+    it "should not alter the content" do
+      @javascript_content = "function() { alert('hello'); }"
+      write_content(File.join(@javascripts_path, 'test.js'), @javascript_content)
+
+      result = @processor.process_asset('javascripts/test.js')
+
+      result.should == @javascript_content
+    end
+  end
 end

@@ -7,7 +7,11 @@ module Stylo
     def process_asset(asset)
       combined_content = super(asset)
 
-      ::Sass::Engine.new(combined_content, { :syntax => :scss }).render
+      if (File.extname(asset) == '.css')
+        ::Sass::Engine.new(combined_content, {:syntax => :scss}).render
+      else
+        combined_content
+      end
     end
 
     def get_file_content(asset_path)
