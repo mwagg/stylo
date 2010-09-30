@@ -8,11 +8,11 @@ module Stylo
     def call(env)
       path = env["PATH_INFO"]
 
-      if path =~ /\.css\z/
+      if path =~ /(\.css)|(\.js)\z/
         content = @processor.process_asset(path)
 
         if !content.nil?
-          return stylesheet_response(content)
+          return stylesheet_response(content, $1)
         end
       end
 
@@ -21,12 +21,14 @@ module Stylo
 
     private
 
-    def stylesheet_response(stylesheet_content)
+    def stylesheet_response(stylesheet_content, extension)
+      content_type = extension == '.css' ? 'text/css' : 'text/javascript'
+
       [200,
           {
                   'Cache-Control' => 'public, max-age=86400',
                   'Content-Length' => stylesheet_content.length.to_s,
-                  'Content-Type' => 'text/css'
+                  'Content-Type' => content_type
           }, stylesheet_content]
     end
   end
