@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'rake'
+require 'cucumber'
+require 'cucumber/rake/task'
 
 begin
   require 'jeweler'
@@ -34,4 +36,8 @@ Rake::RDocTask.new do |rdoc|
   rdoc.title = "stylo #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "features --format pretty"
 end

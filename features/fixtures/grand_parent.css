@@ -1,0 +1,5 @@
+@import "parent.css";
+
+#grandparent {
+    background: #CCCCCC;
+}
