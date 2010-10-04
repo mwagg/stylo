@@ -1,0 +1,6 @@
+@import "sass_mixins.scss";
+
+#element {
+    @include black-border;
+    baclground: #FFFFFF;
+}
