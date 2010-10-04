@@ -19,6 +19,7 @@ World do
     end
   end
 
+  Stylo::Config.reset_to_default
   reset_paths
 end
 

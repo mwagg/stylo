@@ -17,3 +17,7 @@ end
 When /^the "([^\"]*)" header should be "([^\"]*)"$/ do |header_key, expected_value|
   last_response.headers[header_key].should == expected_value
 end
+
+Given /^Sass integration is enabled$/ do
+  Stylo::Config.enable_sass = true
+end
