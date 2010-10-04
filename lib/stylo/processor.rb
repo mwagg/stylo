@@ -18,7 +18,7 @@ module Stylo
       if !file_content.nil?
         asset_dir = File.dirname(asset_path)
 
-        import_regex = asset_extension == '.css' ? /@import "(.*)";/ : /\/\/\/include "(.*)";/
+        import_regex = asset_extension == '.css' ? /@import "(.*)";/ : /\/\/\/require "(.*)";/
 
         process_requires file_content, asset_dir, import_regex
       else

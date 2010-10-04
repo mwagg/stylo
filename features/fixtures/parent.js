@@ -1,4 +1,4 @@
-///include "child.js";
+///require "child.js";
 
 function parent() {
     alert('parent');

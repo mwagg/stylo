@@ -1,4 +1,4 @@
-///include "parent.js";
+///require "parent.js";
 
 function grandParent() {
     alert('grand parent');

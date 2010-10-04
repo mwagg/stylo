@@ -104,7 +104,7 @@ describe Stylo::Processor do
 
   describe "when the javascript imports another javascript file" do
     before(:each) do
-      @javascript_content = %Q{///include "child.js";
+      @javascript_content = %Q{///require "child.js";
 
       function parent() {
         alert('parent');
