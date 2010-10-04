@@ -9,3 +9,11 @@ end
 Then /^the response body should look like "([^"]*)"$/ do |filename|
   last_response.body.should == load_fixture(filename)
 end
+
+Then /^the response code should be "([^\"]*)"$/ do |response_code|
+  last_response.status.should == response_code.to_i
+end
+
+When /^the "([^\"]*)" header should be "([^\"]*)"$/ do |header_key, expected_value|
+  last_response.headers[header_key].should == expected_value
+end
