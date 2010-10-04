@@ -22,14 +22,13 @@ module Stylo
     private
 
     def stylesheet_response(stylesheet_content, extension)
-      content_type = extension == '.css' ? 'text/css' : 'text/javascript'
+      content_type = extension == '.css' ? :css : :javascript
 
-      [200,
-          {
-                  'Cache-Control' => 'public, max-age=86400',
-                  'Content-Length' => stylesheet_content.length.to_s,
-                  'Content-Type' => content_type
-          }, stylesheet_content]
+      response = Response.new
+      response.set_body stylesheet_content, content_type
+      response.set_header 'Cache-Control', 'public, max-age=86400'
+
+      response.build
     end
   end
 end
