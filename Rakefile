@@ -26,7 +26,7 @@ Spec::Rake::SpecTask.new('spec') do |t|
   t.spec_files = FileList['spec/**/*.rb']
 end
 
-task :default => :spec
+task :default => [:spec, :features]
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|

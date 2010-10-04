@@ -1,9 +1,7 @@
-require 'fileutils'
-require 'rack'
 require 'rack/test'
 require 'sinatra'
-require File.join(File.dirname(__FILE__), '../../lib/stylo')
-require File.join(File.dirname(__FILE__), '../../spec/stylo_spec_helpers')
+
+require File.join(File.dirname(__FILE__), '../../spec/spec_helper')
 
 class MyApp < Sinatra::Application
 
