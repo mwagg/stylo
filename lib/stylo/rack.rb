@@ -8,6 +8,9 @@ module Stylo
     def call(env)
       path = env["PATH_INFO"]
 
+      response = Response.new
+      Stylo::Config.pipeline.each { |step| step.call(response) }
+
       if path =~ /(\.css)|(\.js)\z/
         content = @processor.process_asset(path)
 

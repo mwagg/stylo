@@ -6,6 +6,10 @@ module Stylo
       def reset_to_default
         self.enable_sass = false
       end
+
+      def pipeline
+        []
+      end
     end
   end
 end
