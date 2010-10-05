@@ -25,6 +25,6 @@ module StyloSpecHelpers
       mkdir_p path
     end
 
-    Stylo::Config.public_location = temp_path()
+    Stylo::Config.asset_location = temp_path()
   end
 end

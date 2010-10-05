@@ -7,7 +7,7 @@ module Stylo
     end
 
     def get_stylesheet_path(asset)
-      File.join(Stylo::Config.public_location, asset)
+      File.join(Stylo::Config.asset_location, asset)
     end
 
     def process_asset(asset)
