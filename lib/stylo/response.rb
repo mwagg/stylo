@@ -1,10 +1,15 @@
 module Stylo
   class Response
-    def initialize
+    def initialize(path)
       @headers = {}
+      @path = path
     end
 
-    attr_reader :body, :headers
+    attr_reader :body, :headers, :path
+
+    def has_content?
+      !body.nil?
+    end
 
     def set_body(content, content_type)
       @body = content

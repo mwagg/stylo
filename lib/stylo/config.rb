@@ -8,7 +8,7 @@ module Stylo
       end
 
       def pipeline
-        []
+        [Stylo::PipelineSteps::LegacyProcessor.new]
       end
     end
   end

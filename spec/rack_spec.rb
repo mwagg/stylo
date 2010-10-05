@@ -5,19 +5,50 @@ describe Stylo::Rack do
   let(:env) { {} }
 
   describe "call" do
-    it "should call each pipeline step" do
-      app.stub(:call)
+    let(:pipeline_steps) { [] }
 
-      pipeline_steps = []
+    before(:each) do
+      app.stub(:call)
+      Stylo::Config.stub(:pipeline).and_return(pipeline_steps)
+    end
+
+    it "should call each pipeline step" do
       3.times do |i|
         step = mock("pipeline step #{i}")
         step.should_receive(:call).with(instance_of(Stylo::Response))
         pipeline_steps << step
       end
 
-      Stylo::Config.stub(:pipeline).and_return(pipeline_steps)
-
       Stylo::Rack.new(app).call(env)
+    end
+
+    describe "when no step has been able to deal with the request" do
+      it "should call back into the app" do
+        app.should_receive(:call).with(env)
+
+        Stylo::Rack.new(app).call(env)
+      end
+    end
+
+    describe "when a step has been able to deal with the request" do
+      let(:response) { mock(:response, :has_content? => true) }
+
+      before(:each) do
+        Stylo::Response.stub(:new).and_return(response)
+      end
+
+      it "should not call back into the app" do
+        app.should_not_receive(:call).with(env)
+        response.stub(:build)
+
+        Stylo::Rack.new(app).call(env)
+      end
+
+      it "should return the built response" do
+        response.stub(:build).and_return([200, {}, "some-content"])
+
+        Stylo::Rack.new(app).call(env).should == response.build
+      end
     end
   end
 

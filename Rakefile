@@ -39,5 +39,5 @@ Rake::RDocTask.new do |rdoc|
 end
 
 Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "features --format pretty"
+  t.profile = :default
 end

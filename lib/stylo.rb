@@ -1,10 +1,5 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-require 'stylo/config'
-require 'stylo/response'
-require 'stylo/rack'
-require 'stylo/processor'
-require 'stylo/sass'
-require 'stylo/railtie'
+Dir.glob(File.join(File.dirname(__FILE__), '**/*.rb')).each { |f| require f }
 
 
