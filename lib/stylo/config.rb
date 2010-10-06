@@ -8,7 +8,9 @@ module Stylo
       end
 
       def pipeline
-        [Stylo::PipelineSteps::LegacyProcessor.new]
+        [Stylo::PipelineSteps::Stylesheet.new,
+         Stylo::PipelineSteps::LegacyProcessor.new,
+         Stylo::PipelineSteps::Caching.new]
       end
     end
   end

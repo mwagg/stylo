@@ -11,6 +11,10 @@ module Stylo
       !body.nil?
     end
 
+    def extension
+      File.extname @path
+    end
+
     def set_body(content, content_type)
       @body = content
 

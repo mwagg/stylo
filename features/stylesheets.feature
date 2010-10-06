@@ -1,3 +1,4 @@
+@wip
 Feature: Stylesheet serving
 
   Scenario: Simple stylesheet serving
@@ -17,3 +18,15 @@ Feature: Stylesheet serving
     And "child.css" is located at "stylesheets" in the asset location
     When a request is made for "stylesheets/grand_parent.css"
     Then the response body should look like "grand_parent_with_parent_with_child.css"
+
+  Scenario: Stylesheet responses should have the correct headers
+    Given "child.css" is located at "stylesheets" in the asset location
+    When a request is made for "stylesheets/child.css"
+    Then the response code should be "200"
+    And the "Content-Length" header should be "35"
+    And the "Content-Type" header should be "text/css"
+
+  Scenario: Stylesheets should be cached
+    Given "child.css" is located at "stylesheets" in the asset location
+    When a request is made for "stylesheets/child.css"
+    Then the "Cache-Control" header should be "public, max-age=86400"

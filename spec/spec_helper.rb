@@ -9,6 +9,10 @@ require 'stylo_spec_helpers'
 Spec::Runner.configure do |config|
   config.include StyloSpecHelpers
   config.include FileUtils
+
+  config.before(:each) do
+    reset_paths
+  end
 end
 
 
