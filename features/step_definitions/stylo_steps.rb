@@ -18,10 +18,6 @@ When /^the "([^\"]*)" header should be "([^\"]*)"$/ do |header_key, expected_val
   last_response.headers[header_key].should == expected_value
 end
 
-Given /^Sass integration is enabled$/ do
-  Stylo::Config.enable_sass = true
-end
-
 Then /^the response should be from a call back into rack$/ do
   last_response.status.should == 404
   last_response.body.should include("Sinatra doesn't know this ditty.")
