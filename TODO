@@ -1,0 +1,4 @@
+add javascript pipeline step
+add minification for javascript
+add minification for css
+make it so sass is only used if the sass gem is not available (without making the pipeline configuration messy)
