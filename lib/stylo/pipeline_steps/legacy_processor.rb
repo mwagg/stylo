@@ -8,7 +8,7 @@ module Stylo
       def call(response)
         return if response.has_content?
 
-        if response.path =~ /(\.css)|(\.js)\z/
+        if response.path =~ /(\.js)\z/
           content = @processor.process_asset(response.path)
 
           if !content.nil?

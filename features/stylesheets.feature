@@ -1,4 +1,3 @@
-@wip
 Feature: Stylesheet serving
 
   Scenario: Simple stylesheet serving

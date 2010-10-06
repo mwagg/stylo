@@ -10,6 +10,7 @@ module Stylo
       def pipeline
         [Stylo::PipelineSteps::Stylesheet.new,
          Stylo::PipelineSteps::LegacyProcessor.new,
+         Stylo::PipelineSteps::Sass.new,
          Stylo::PipelineSteps::Caching.new]
       end
     end

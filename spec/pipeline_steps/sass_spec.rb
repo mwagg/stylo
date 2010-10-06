@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Stylo::PipelineSteps::Stylesheet do
-  let(:step) { Stylo::PipelineSteps::Stylesheet.new }
+describe Stylo::PipelineSteps::Sass do
+  let(:step) { Stylo::PipelineSteps::Sass.new }
 
   describe "when the response has not already been set" do
     describe "and the request is not for a stylesheet" do
@@ -16,14 +16,12 @@ describe Stylo::PipelineSteps::Stylesheet do
     end
 
     describe "and the request is for a stylesheet" do
-      let(:response) { Stylo::Response.new('stylesheets/test.css') }
+      let(:requested_path) { 'stylesheets/test.css' }
+      let(:sass_path) { 'stylesheets/test.scss' }
+      let(:response) { Stylo::Response.new(requested_path) }
 
-      before(:each) do
-
-      end
-
-      it "should ask the asset loader to load the stylesheet content" do
-        Stylo::AssetLoader.should_receive(:load_content).with(response.path).and_return(nil)
+      it "should ask the asset loader to load the sass stylesheet content" do
+        Stylo::AssetLoader.should_receive(:load_content).with(sass_path).and_return(nil)
 
         step.call(response)
       end
@@ -40,13 +38,17 @@ describe Stylo::PipelineSteps::Stylesheet do
 
       describe "and the asset exists" do
         let(:stylesheet_content) { "html { color: $color; }" }
-        let(:combined_stylesheet_content) { "html { color: red; }" }
+        let(:combined_stylesheet_content) { "html { color: $red; }" }
+        let(:processed_content) { "html { color: red; }" }
+        let(:sass_engine) { mock(:sass_engine) }
         let(:combiner) { mock(:combiner) }
 
         before(:each) do
           Stylo::AssetLoader.stub(:load_content).and_return(stylesheet_content)
           Stylo::Combiner.stub(:new).with('stylesheets', /@import "(.*)";/).and_return(combiner)
           combiner.stub(:process).with(stylesheet_content).and_return(combined_stylesheet_content)
+          ::Sass::Engine.stub(:new).with(combined_stylesheet_content, {:syntax => :scss}).and_return(sass_engine)
+          sass_engine.stub(:render).and_return(processed_content)
         end
 
         it "should tell the combiner to process the stylesheet content" do
@@ -56,10 +58,17 @@ describe Stylo::PipelineSteps::Stylesheet do
           step.call(response)
         end
 
+        it "should run the combined content through sass" do
+          ::Sass::Engine.should_receive(:new).with(combined_stylesheet_content, {:syntax => :scss}).and_return(sass_engine)
+          sass_engine.should_receive(:render).and_return(processed_content)
+
+          step.call(response)
+        end
+
         it "should set the body of the response to the combined stylesheet content" do
           step.call(response)
 
-          response.body.should == combined_stylesheet_content
+          response.body.should == processed_content
         end
 
         it "should set the content type to text/css" do
@@ -81,4 +90,5 @@ describe Stylo::PipelineSteps::Stylesheet do
       response.body.should == 'some-content'
     end
   end
+
 end
