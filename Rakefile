@@ -18,7 +18,7 @@ begin
     gem.add_development_dependency "sinatra", ">= 0"
     gem.add_development_dependency "rails", ">= 3.0.0"
     gem.add_runtime_dependency "haml", ">= 3.0.21"
-    gem.version = "0.5"
+    gem.version = "0.5.1"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
