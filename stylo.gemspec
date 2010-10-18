@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stylo}
-  s.version = "0.5"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["mwagg"]
@@ -97,12 +97,14 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<rack-test>, [">= 0"])
       s.add_development_dependency(%q<sinatra>, [">= 0"])
+      s.add_development_dependency(%q<rails>, [">= 3.0.0"])
       s.add_runtime_dependency(%q<haml>, [">= 3.0.21"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<rack-test>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0"])
+      s.add_dependency(%q<rails>, [">= 3.0.0"])
       s.add_dependency(%q<haml>, [">= 3.0.21"])
     end
   else
@@ -110,6 +112,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<rack-test>, [">= 0"])
     s.add_dependency(%q<sinatra>, [">= 0"])
+    s.add_dependency(%q<rails>, [">= 3.0.0"])
     s.add_dependency(%q<haml>, [">= 3.0.21"])
   end
 end
