@@ -5,16 +5,17 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stylo}
-  s.version = "0.4.0"
+  s.version = "0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["mwagg"]
-  s.date = %q{2010-09-30}
+  s.date = %q{2010-10-18}
   s.description = %q{Server side stylesheet combining for readonly hosting environments}
   s.email = %q{michael@guerillatactics.co.uk}
   s.extra_rdoc_files = [
     "LICENSE",
-     "README.rdoc"
+     "README.rdoc",
+     "TODO"
   ]
   s.files = [
     ".document",
@@ -22,17 +23,52 @@ Gem::Specification.new do |s|
      "LICENSE",
      "README.rdoc",
      "Rakefile",
-     "VERSION",
+     "TODO",
+     "cucumber.yml",
+     "features/fixtures.rb",
+     "features/fixtures/child.css",
+     "features/fixtures/child.js",
+     "features/fixtures/grand_parent.css",
+     "features/fixtures/grand_parent.js",
+     "features/fixtures/grand_parent_with_parent_with_child.css",
+     "features/fixtures/grand_parent_with_parent_with_child.js",
+     "features/fixtures/parent.css",
+     "features/fixtures/parent.js",
+     "features/fixtures/parent_with_child.css",
+     "features/fixtures/parent_with_child.js",
+     "features/fixtures/processed_sass_child.css",
+     "features/fixtures/processed_sass_which_uses_mixin.css",
+     "features/fixtures/sass_child.scss",
+     "features/fixtures/sass_mixins.scss",
+     "features/fixtures/sass_which_uses_mixin.scss",
+     "features/javascripts.feature",
+     "features/response_headers.feature",
+     "features/sass_integration.feature",
+     "features/step_definitions/stylo_steps.rb",
+     "features/stylesheets.feature",
+     "features/stylo_cannot_serve_asset.feature",
+     "features/support/env.rb",
      "lib/stylo.rb",
+     "lib/stylo/asset_loader.rb",
+     "lib/stylo/combiner.rb",
      "lib/stylo/config.rb",
+     "lib/stylo/pipeline_steps/caching.rb",
+     "lib/stylo/pipeline_steps/javascript.rb",
+     "lib/stylo/pipeline_steps/sass.rb",
+     "lib/stylo/pipeline_steps/stylesheet.rb",
      "lib/stylo/processor.rb",
      "lib/stylo/rack.rb",
      "lib/stylo/railtie.rb",
-     "lib/stylo/sass.rb",
-     "spec/processor_spec.rb",
+     "lib/stylo/response.rb",
+     "spec/asset_loader_spec.rb",
+     "spec/combiner_spec.rb",
+     "spec/pipeline_steps/caching_spec.rb",
+     "spec/pipeline_steps/javascript_spec.rb",
+     "spec/pipeline_steps/sass_spec.rb",
+     "spec/pipeline_steps/stylesheet_spec.rb",
      "spec/rack_spec.rb",
-     "spec/sass_spec.rb",
      "spec/spec_helper.rb",
+     "spec/stylo_spec_helpers.rb",
      "stylo.gemspec"
   ]
   s.homepage = %q{http://github.com/mwagg/stylo}
@@ -41,10 +77,15 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Server side stylesheet combining for readonly hosting environments}
   s.test_files = [
-    "spec/processor_spec.rb",
+    "spec/asset_loader_spec.rb",
+     "spec/combiner_spec.rb",
+     "spec/pipeline_steps/caching_spec.rb",
+     "spec/pipeline_steps/javascript_spec.rb",
+     "spec/pipeline_steps/sass_spec.rb",
+     "spec/pipeline_steps/stylesheet_spec.rb",
      "spec/rack_spec.rb",
-     "spec/sass_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/stylo_spec_helpers.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -53,11 +94,23 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_development_dependency(%q<rack-test>, [">= 0"])
+      s.add_development_dependency(%q<sinatra>, [">= 0"])
+      s.add_runtime_dependency(%q<haml>, [">= 3.0.21"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<rack-test>, [">= 0"])
+      s.add_dependency(%q<sinatra>, [">= 0"])
+      s.add_dependency(%q<haml>, [">= 3.0.21"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<rack-test>, [">= 0"])
+    s.add_dependency(%q<sinatra>, [">= 0"])
+    s.add_dependency(%q<haml>, [">= 3.0.21"])
   end
 end
 
