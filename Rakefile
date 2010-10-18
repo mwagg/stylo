@@ -13,6 +13,10 @@ begin
     gem.homepage = "http://github.com/mwagg/stylo"
     gem.authors = ["mwagg"]
     gem.add_development_dependency "rspec", ">= 0"
+    gem.add_development_dependency "cucumber", ">= 0"
+    gem.add_development_dependency "rack-test", ">= 0"
+    gem.add_development_dependency "sinatra", ">= 0"
+    gem.add_runtime_dependency "haml", ">= 3.0.21"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -20,11 +24,9 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 desc "Run all examples"
-Spec::Rake::SpecTask.new('spec') do |t|
-  t.spec_files = FileList['spec/**/*.rb']
-end
+RSpec::Core::RakeTask.new()
 
 task :default => [:spec, :features]
 
