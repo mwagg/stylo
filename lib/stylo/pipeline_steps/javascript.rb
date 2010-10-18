@@ -7,7 +7,7 @@ module Stylo
         return if response.has_content? || response.extension != '.js'
         return unless content = AssetLoader.load_content(response.path)
 
-        if Config.combining_enabled
+        if Config.javascript_combining_enabled
           content = Combiner.new(File.dirname(response.path), REQUIRE_PATTERN).process(content)
         end
 

@@ -8,7 +8,7 @@ Feature: Javascript serving
   Scenario: Simple javascript combining
     Given "parent.js" is located at "javascripts" in the asset location
     And "child.js" is located at "javascripts" in the asset location
-    And combining is disabled
+    And javascript combining is disabled
     When a request is made for "javascripts/parent.js"
     Then the response body should look like "parent.js"
 

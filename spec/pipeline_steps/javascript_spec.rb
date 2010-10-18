@@ -51,7 +51,7 @@ describe Stylo::PipelineSteps::Javascript do
 
         describe "and combining is enabled" do
           before(:each) do
-            Stylo::Config.combining_enabled = true
+            Stylo::Config.javascript_combining_enabled = true
           end
 
           it "should tell the combiner to process the javascript content" do
@@ -70,7 +70,7 @@ describe Stylo::PipelineSteps::Javascript do
 
         describe "and combining is disabled" do
           before(:each) do
-            Stylo::Config.combining_enabled = false
+            Stylo::Config.javascript_combining_enabled = false
           end
 
           it "should set the body of the response to the javascript content" do

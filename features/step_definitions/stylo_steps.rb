@@ -23,6 +23,10 @@ Then /^the response should be from a call back into rack$/ do
   last_response.body.should include("Sinatra doesn't know this ditty.")
 end
 
-When /^combining is disabled$/ do
-  Stylo::Config.combining_enabled = false
+When /^javascript combining is disabled$/ do
+  Stylo::Config.javascript_combining_enabled = false
+end
+
+When /^css combining is disabled$/ do
+  Stylo::Config.css_combining_enabled = false
 end

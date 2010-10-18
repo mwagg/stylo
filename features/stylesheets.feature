@@ -8,7 +8,7 @@ Feature: Stylesheet serving
   Scenario: Combining does not take place when it is disabled
     Given "parent.css" is located at "stylesheets" in the asset location
     And "child.css" is located at "stylesheets" in the asset location
-    And combining is disabled
+    And css combining is disabled
     When a request is made for "stylesheets/parent.css"
     Then the response body should look like "parent.css"
 
