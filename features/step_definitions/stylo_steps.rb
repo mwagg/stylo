@@ -22,3 +22,7 @@ Then /^the response should be from a call back into rack$/ do
   last_response.status.should == 404
   last_response.body.should include("Sinatra doesn't know this ditty.")
 end
+
+When /^combining is disabled$/ do
+  Stylo::Config.combining_enabled = false
+end

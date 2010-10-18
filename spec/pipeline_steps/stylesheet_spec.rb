@@ -49,17 +49,36 @@ describe Stylo::PipelineSteps::Stylesheet do
           combiner.stub(:process).with(stylesheet_content).and_return(combined_stylesheet_content)
         end
 
-        it "should tell the combiner to process the stylesheet content" do
-          Stylo::Combiner.should_receive(:new).with('stylesheets', /@import "(.*)";/).and_return(combiner)
-          combiner.should_receive(:process).with(stylesheet_content).and_return(combined_stylesheet_content)
+        describe "and combining is enabled" do
+          before(:each) do
+            Stylo::Config.combining_enabled = true
+          end
 
-          step.call(response)
+          it "should tell the combiner to process the stylesheet content" do
+            Stylo::Combiner.should_receive(:new).with('stylesheets', /@import "(.*)";/).and_return(combiner)
+            combiner.should_receive(:process).with(stylesheet_content).and_return(combined_stylesheet_content)
+
+            step.call(response)
+          end
+
+          it "should set the body of the response to the combined stylesheet content" do
+            step.call(response)
+
+            response.body.should == combined_stylesheet_content
+          end
         end
 
-        it "should set the body of the response to the combined stylesheet content" do
-          step.call(response)
+        describe "and combining is disabled" do
+          before(:each) do
+            Stylo::Config.combining_enabled = false
+          end
 
-          response.body.should == combined_stylesheet_content
+          it "should set the body of the response to the stylesheet content" do
+            step.call(response)
+
+            response.body.should == stylesheet_content
+          end
+
         end
 
         it "should set the content type to text/css" do

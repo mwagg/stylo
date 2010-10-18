@@ -22,3 +22,7 @@ World do
   reset_paths
 end
 
+Before do
+  Stylo::Config.reset_to_default
+end
+

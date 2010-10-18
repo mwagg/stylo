@@ -5,6 +5,13 @@ Feature: Stylesheet serving
     When a request is made for "stylesheets/child.css"
     Then the response body should look like "child.css"
 
+  Scenario: Combining does not take place when it is disabled
+    Given "parent.css" is located at "stylesheets" in the asset location
+    And "child.css" is located at "stylesheets" in the asset location
+    And combining is disabled
+    When a request is made for "stylesheets/parent.css"
+    Then the response body should look like "parent.css"
+
   Scenario: Simple stylesheet combining
     Given "parent.css" is located at "stylesheets" in the asset location
     And "child.css" is located at "stylesheets" in the asset location

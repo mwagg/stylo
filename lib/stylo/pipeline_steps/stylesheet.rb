@@ -6,9 +6,12 @@ module Stylo
       def call(response)
         return if response.has_content? || response.extension != '.css'
         return unless content = AssetLoader.load_content(response.path)
-        combined_content = Combiner.new(File.dirname(response.path), REQUIRE_PATTERN).process(content)
 
-        response.set_body combined_content, :css
+        if Config.combining_enabled == true
+          content = Combiner.new(File.dirname(response.path), REQUIRE_PATTERN).process(content)
+        end
+
+        response.set_body content, :css
       end
     end
   end
