@@ -49,17 +49,35 @@ describe Stylo::PipelineSteps::Javascript do
           combiner.stub(:process).with(javascript_content).and_return(combined_javascript_content)
         end
 
-        it "should tell the combiner to process the javascript content" do
-          Stylo::Combiner.should_receive(:new).with('javascripts', /\/\/\/require "(.*)";/).and_return(combiner)
-          combiner.should_receive(:process).with(javascript_content).and_return(combined_javascript_content)
+        describe "and combining is enabled" do
+          before(:each) do
+            Stylo::Config.combining_enabled = true
+          end
 
-          step.call(response)
+          it "should tell the combiner to process the javascript content" do
+            Stylo::Combiner.should_receive(:new).with('javascripts', /\/\/\/require "(.*)";/).and_return(combiner)
+            combiner.should_receive(:process).with(javascript_content).and_return(combined_javascript_content)
+
+            step.call(response)
+          end
+
+          it "should set the body of the response to the combined javascript content" do
+            step.call(response)
+
+            response.body.should == combined_javascript_content
+          end
         end
 
-        it "should set the body of the response to the combined javascript content" do
-          step.call(response)
+        describe "and combining is disabled" do
+          before(:each) do
+            Stylo::Config.combining_enabled = false
+          end
 
-          response.body.should == combined_javascript_content
+          it "should set the body of the response to the javascript content" do
+            step.call(response)
+
+            response.body.should == javascript_content
+          end
         end
 
         it "should set the content type to text/javascript" do
