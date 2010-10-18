@@ -1,3 +1,4 @@
+support switching off combining (for development)
 add javascript pipeline step
 add minification for javascript
 add minification for css
