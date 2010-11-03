@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stylo}
-  s.version = "0.5.1"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["mwagg"]
-  s.date = %q{2010-10-18}
+  s.date = %q{2010-11-03}
   s.description = %q{Server side stylesheet combining for readonly hosting environments}
   s.email = %q{michael@guerillatactics.co.uk}
   s.extra_rdoc_files = [
@@ -32,6 +32,8 @@ Gem::Specification.new do |s|
      "features/fixtures/grand_parent.js",
      "features/fixtures/grand_parent_with_parent_with_child.css",
      "features/fixtures/grand_parent_with_parent_with_child.js",
+     "features/fixtures/nested_folder_grand_parent.css",
+     "features/fixtures/nested_folder_grand_parent_with_parent_with_child.css",
      "features/fixtures/parent.css",
      "features/fixtures/parent.js",
      "features/fixtures/parent_with_child.css",
