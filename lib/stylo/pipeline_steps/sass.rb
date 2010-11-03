@@ -8,7 +8,7 @@ module Stylo
         content = AssetLoader.load_content(response.path.gsub('.css', '.scss'))
         return if content.nil?
 
-        combined_content = Combiner.new(File.dirname(response.path), REQUIRE_PATTERN).process(File.dirname(response.path), content)
+        combined_content = Combiner.new(REQUIRE_PATTERN).process(File.dirname(response.path), content)
         processed_content = ::Sass::Engine.new(combined_content, {:syntax => :scss}).render
 
         response.set_body(processed_content, :css)

@@ -8,7 +8,7 @@ module Stylo
         return unless content = AssetLoader.load_content(response.path)
 
         if Config.javascript_combining_enabled
-          content = Combiner.new(File.dirname(response.path), REQUIRE_PATTERN).process(File.dirname(response.path), content)
+          content = Combiner.new(REQUIRE_PATTERN).process(File.dirname(response.path), content)
         end
 
         response.set_body content, :javascript

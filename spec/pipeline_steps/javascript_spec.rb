@@ -46,7 +46,7 @@ describe Stylo::PipelineSteps::Javascript do
 
         before(:each) do
           Stylo::AssetLoader.stub(:load_content).and_return(javascript_content)
-          Stylo::Combiner.stub(:new).with('javascripts', /\/\/\/require "(.*)";/).and_return(combiner)
+          Stylo::Combiner.stub(:new).with(/\/\/\/require "(.*)";/).and_return(combiner)
           combiner.stub(:process).with(base_path, javascript_content).and_return(combined_javascript_content)
         end
 
@@ -56,7 +56,7 @@ describe Stylo::PipelineSteps::Javascript do
           end
 
           it "should tell the combiner to process the javascript content" do
-            Stylo::Combiner.should_receive(:new).with('javascripts', /\/\/\/require "(.*)";/).and_return(combiner)
+            Stylo::Combiner.should_receive(:new).with(/\/\/\/require "(.*)";/).and_return(combiner)
             combiner.should_receive(:process).with(base_path, javascript_content).and_return(combined_javascript_content)
 
             step.call(response)

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Stylo::Combiner do
   let(:request_path_directory) { 'assets' }
-  let(:combiner) { Stylo::Combiner.new(request_path_directory, /require "(.*)";/) }
+  let(:combiner) { Stylo::Combiner.new(/require "(.*)";/) }
 
   describe "when the content does not contain the require pattern" do
     let(:content) { "This is some text." }

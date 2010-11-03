@@ -1,8 +1,7 @@
 module Stylo
   class Combiner
-    def initialize(asset_directory, require_pattern)
+    def initialize(require_pattern)
       @require_pattern = require_pattern
-      @asset_directory = asset_directory
     end
 
     def process(base_directory, content)

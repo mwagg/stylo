@@ -46,7 +46,7 @@ describe Stylo::PipelineSteps::Stylesheet do
 
         before(:each) do
           Stylo::AssetLoader.stub(:load_content).and_return(stylesheet_content)
-          Stylo::Combiner.stub(:new).with('stylesheets', /@import "(.*)";/).and_return(combiner)
+          Stylo::Combiner.stub(:new).with(/@import "(.*)";/).and_return(combiner)
           combiner.stub(:process).with(base_path, stylesheet_content).and_return(combined_stylesheet_content)
         end
 
@@ -56,7 +56,7 @@ describe Stylo::PipelineSteps::Stylesheet do
           end
 
           it "should tell the combiner to process the stylesheet content" do
-            Stylo::Combiner.should_receive(:new).with('stylesheets', /@import "(.*)";/).and_return(combiner)
+            Stylo::Combiner.should_receive(:new).with(/@import "(.*)";/).and_return(combiner)
             combiner.should_receive(:process).with(base_path, stylesheet_content).and_return(combined_stylesheet_content)
 
             step.call(response)
