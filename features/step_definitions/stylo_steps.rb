@@ -6,6 +6,11 @@ When /^a request is made for "([^"]*)"$/ do |path|
   get path
 end
 
+When /^a request is made for "([^"]*)" the following error should be raised$/ do |path, expected_error|
+  proc { get path }.should raise_error(expected_error)
+end
+
+
 Then /^the response body should look like "([^"]*)"$/ do |filename|
   last_response.body.should == load_fixture(filename)
 end

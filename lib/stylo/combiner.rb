@@ -7,7 +7,8 @@ module Stylo
 
     def process(content)
       content.gsub @require_pattern do |match|
-        process(AssetLoader.load_content(File.join(@asset_directory, $1)))
+	raise "Cannot find referenced asset '#{$1}'." if !(content = AssetLoader.load_content(File.join(@asset_directory, $1)))
+        process(content)
       end
     end
   end

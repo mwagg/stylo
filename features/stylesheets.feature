@@ -36,3 +36,10 @@ Feature: Stylesheet serving
     Given "child.css" is located at "stylesheets" in the asset location
     When a request is made for "stylesheets/child.css"
     Then the "Cache-Control" header should be "public, max-age=86400"
+
+  Scenario: When a referenced stylesheet does not exist
+    Given "parent.css" is located at "stylesheets" in the asset location
+    When a request is made for "stylesheets/parent.css" the following error should be raised
+    """
+    Cannot find referenced asset 'child.css'.
+    """
