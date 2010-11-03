@@ -1,0 +1,5 @@
+@import "a_folder/parent.css";
+
+#grand-parent {
+  color: red;
+}

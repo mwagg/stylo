@@ -17,6 +17,7 @@ describe Stylo::PipelineSteps::Stylesheet do
 
     describe "and the request is for a stylesheet" do
       let(:response) { Stylo::Response.new('stylesheets/test.css') }
+      let(:base_path) { File.dirname(response.path)  }
 
       before(:each) do
 
@@ -46,7 +47,7 @@ describe Stylo::PipelineSteps::Stylesheet do
         before(:each) do
           Stylo::AssetLoader.stub(:load_content).and_return(stylesheet_content)
           Stylo::Combiner.stub(:new).with('stylesheets', /@import "(.*)";/).and_return(combiner)
-          combiner.stub(:process).with(stylesheet_content).and_return(combined_stylesheet_content)
+          combiner.stub(:process).with(base_path, stylesheet_content).and_return(combined_stylesheet_content)
         end
 
         describe "and combining is enabled" do
@@ -56,7 +57,7 @@ describe Stylo::PipelineSteps::Stylesheet do
 
           it "should tell the combiner to process the stylesheet content" do
             Stylo::Combiner.should_receive(:new).with('stylesheets', /@import "(.*)";/).and_return(combiner)
-            combiner.should_receive(:process).with(stylesheet_content).and_return(combined_stylesheet_content)
+            combiner.should_receive(:process).with(base_path, stylesheet_content).and_return(combined_stylesheet_content)
 
             step.call(response)
           end

@@ -25,6 +25,14 @@ Feature: Stylesheet serving
     When a request is made for "stylesheets/grand_parent.css"
     Then the response body should look like "grand_parent_with_parent_with_child.css"
 
+  Scenario: Stylesheet combining in nested folders
+    Given "nested_folder_grand_parent.css" is located at "stylesheets" in the asset location
+    And a folder "a_folder" exists at "stylesheets" in the asset location
+    And "parent.css" is located at "stylesheets/a_folder" in the asset location
+    And "child.css" is located at "stylesheets/a_folder" in the asset location
+    When a request is made for "stylesheets/nested_folder_grand_parent.css"
+    Then the response body should look like "nested_folder_grand_parent_with_parent_with_child.css"
+
   Scenario: Stylesheet responses should have the correct headers
     Given "child.css" is located at "stylesheets" in the asset location
     When a request is made for "stylesheets/child.css"

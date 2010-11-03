@@ -17,6 +17,7 @@ describe Stylo::PipelineSteps::Javascript do
 
     describe "and the request is for a javascript asset" do
       let(:response) { Stylo::Response.new('javascripts/test.js') }
+      let(:base_path) { File.dirname(response.path)  }
 
       before(:each) do
 
@@ -46,7 +47,7 @@ describe Stylo::PipelineSteps::Javascript do
         before(:each) do
           Stylo::AssetLoader.stub(:load_content).and_return(javascript_content)
           Stylo::Combiner.stub(:new).with('javascripts', /\/\/\/require "(.*)";/).and_return(combiner)
-          combiner.stub(:process).with(javascript_content).and_return(combined_javascript_content)
+          combiner.stub(:process).with(base_path, javascript_content).and_return(combined_javascript_content)
         end
 
         describe "and combining is enabled" do
@@ -56,7 +57,7 @@ describe Stylo::PipelineSteps::Javascript do
 
           it "should tell the combiner to process the javascript content" do
             Stylo::Combiner.should_receive(:new).with('javascripts', /\/\/\/require "(.*)";/).and_return(combiner)
-            combiner.should_receive(:process).with(javascript_content).and_return(combined_javascript_content)
+            combiner.should_receive(:process).with(base_path, javascript_content).and_return(combined_javascript_content)
 
             step.call(response)
           end

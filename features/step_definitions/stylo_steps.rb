@@ -2,6 +2,11 @@ Given /^"([^"]*)" is located at "([^"]*)" in the asset location$/ do |filename, 
   cp fixture_path(filename), temp_path(folder)
 end
 
+Given /^a folder "([^"]*)" exists at "([^"]*)" in the asset location$/ do |folder_name, folder|
+  mkdir temp_path("#{folder}/#{folder_name}")
+end
+
+
 When /^a request is made for "([^"]*)"$/ do |path|
   get path
 end

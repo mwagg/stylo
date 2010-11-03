@@ -5,10 +5,13 @@ module Stylo
       @asset_directory = asset_directory
     end
 
-    def process(content)
+    def process(base_directory, content)
       content.gsub @require_pattern do |match|
-	raise "Cannot find referenced asset '#{$1}'." if !(content = AssetLoader.load_content(File.join(@asset_directory, $1)))
-        process(content)
+        required_dir = File.dirname($1)
+	required_dir = required_dir == '.' ? base_directory : File.join(base_directory, required_dir)
+
+	raise "Cannot find referenced asset '#{$1}'." if !(content = AssetLoader.load_content(File.join(base_directory, $1)))
+        process(required_dir, content)
       end
     end
   end

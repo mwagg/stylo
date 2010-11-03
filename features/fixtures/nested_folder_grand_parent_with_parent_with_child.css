@@ -1,0 +1,11 @@
+#child {
+    background: #000000;
+}
+
+#parent {
+    background: #FFFFFF;
+}
+
+#grand-parent {
+  color: red;
+}
