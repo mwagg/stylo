@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stylo}
-  s.version = "0.6.0"
+  s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["mwagg"]
-  s.date = %q{2010-11-03}
+  s.date = %q{2010-11-11}
   s.description = %q{Server side stylesheet combining for readonly hosting environments}
   s.email = %q{michael@guerillatactics.co.uk}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "TODO",
      "cucumber.yml",
      "features/fixtures.rb",
+     "features/fixtures/child-min.js",
      "features/fixtures/child.css",
      "features/fixtures/child.js",
      "features/fixtures/grand_parent.css",
@@ -50,12 +51,14 @@ Gem::Specification.new do |s|
      "features/stylesheets.feature",
      "features/stylo_cannot_serve_asset.feature",
      "features/support/env.rb",
+     "lib/jsmin.rb",
      "lib/stylo.rb",
      "lib/stylo/asset_loader.rb",
      "lib/stylo/combiner.rb",
      "lib/stylo/config.rb",
      "lib/stylo/pipeline_steps/caching.rb",
      "lib/stylo/pipeline_steps/javascript.rb",
+     "lib/stylo/pipeline_steps/javascript_minifying.rb",
      "lib/stylo/pipeline_steps/sass.rb",
      "lib/stylo/pipeline_steps/stylesheet.rb",
      "lib/stylo/processor.rb",
@@ -65,6 +68,7 @@ Gem::Specification.new do |s|
      "spec/asset_loader_spec.rb",
      "spec/combiner_spec.rb",
      "spec/pipeline_steps/caching_spec.rb",
+     "spec/pipeline_steps/javascript_minifying_spec.rb",
      "spec/pipeline_steps/javascript_spec.rb",
      "spec/pipeline_steps/sass_spec.rb",
      "spec/pipeline_steps/stylesheet_spec.rb",
@@ -82,6 +86,7 @@ Gem::Specification.new do |s|
     "spec/asset_loader_spec.rb",
      "spec/combiner_spec.rb",
      "spec/pipeline_steps/caching_spec.rb",
+     "spec/pipeline_steps/javascript_minifying_spec.rb",
      "spec/pipeline_steps/javascript_spec.rb",
      "spec/pipeline_steps/sass_spec.rb",
      "spec/pipeline_steps/stylesheet_spec.rb",
