@@ -1,4 +1,4 @@
 make configuration nicer and more flexible
-add minification for javascript
 add minification for css
+set etags
 make it so sass is not used if the sass gem is not available (without making the pipeline configuration messy)
