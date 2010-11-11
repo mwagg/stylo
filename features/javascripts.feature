@@ -24,3 +24,10 @@ Feature: Javascript serving
     And "child.js" is located at "javascripts" in the asset location
     When a request is made for "javascripts/grand_parent.js"
     Then the response body should look like "grand_parent_with_parent_with_child.js"
+
+  Scenario: Minifying javascript
+    Given javascript compression is enabled
+    And "child.js" is located at "javascripts" in the asset location
+    When a request is made for "javascripts/child.js"
+    Then the response body should look like "child-min.js"
+

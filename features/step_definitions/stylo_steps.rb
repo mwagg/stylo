@@ -40,3 +40,7 @@ end
 When /^css combining is disabled$/ do
   Stylo::Config.css_combining_enabled = false
 end
+
+Given /^javascript compression is enabled$/ do
+  Stylo::Config.javascript_minifying_enabled = true
+end
