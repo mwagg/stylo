@@ -19,10 +19,11 @@ World do
     end
   end
 
-  reset_paths
+  true
 end
 
 Before do
   Stylo::Config.reset_to_default
+  reset_paths
 end
 

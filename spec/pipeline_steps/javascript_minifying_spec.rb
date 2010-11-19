@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Stylo::PipelineSteps::JavascriptMinifying do
   before(:each) do
-    Stylo::Config.javascript_minifying_enabled = true
+    Stylo::Config.options[:javascript_minifying_enabled] = true
   end
 
   let(:step) { Stylo::PipelineSteps::JavascriptMinifying.new }

@@ -1,7 +1,17 @@
 module Stylo
   class Config
     class << self
-      attr_accessor :asset_location, :css_combining_enabled, :javascript_combining_enabled, :javascript_minifying_enabled
+      def options
+        @options ||= defaults.clone
+      end
+
+      def defaults
+        {
+            :css_combining_enabled => true,
+            :js_combining_enabled => true,
+            :js_minifying_enabled => true
+        }
+      end
 
       def pipeline
         [Stylo::PipelineSteps::Stylesheet.new,
@@ -11,9 +21,7 @@ module Stylo
       end
 
       def reset_to_default
-        self.css_combining_enabled = true
-        self.javascript_combining_enabled = true
-        self.javascript_minifying_enabled = false
+        @options = defaults.clone
       end
     end
 

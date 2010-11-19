@@ -52,7 +52,7 @@ describe Stylo::PipelineSteps::Stylesheet do
 
         describe "and combining is enabled" do
           before(:each) do
-            Stylo::Config.css_combining_enabled = true
+            Stylo::Config.options[:css_combining_enabled] = true
           end
 
           it "should tell the combiner to process the stylesheet content" do
@@ -71,7 +71,7 @@ describe Stylo::PipelineSteps::Stylesheet do
 
         describe "and combining is disabled" do
           before(:each) do
-            Stylo::Config.css_combining_enabled = false
+            Stylo::Config.options[:css_combining_enabled] = false
           end
 
           it "should set the body of the response to the stylesheet content" do

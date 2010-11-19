@@ -34,13 +34,21 @@ Then /^the response should be from a call back into rack$/ do
 end
 
 When /^javascript combining is disabled$/ do
-  Stylo::Config.javascript_combining_enabled = false
+  Stylo::Config.options[:js_combining_enabled] = false
 end
 
 When /^css combining is disabled$/ do
-  Stylo::Config.css_combining_enabled = false
+  Stylo::Config.options[:css_combining_enabled] = false
 end
 
-Given /^javascript compression is enabled$/ do
-  Stylo::Config.javascript_minifying_enabled = true
+#Given /^javascript compression is enabled$/ do
+#  Stylo::Config.options[:javascript_minifying_enabled] = true
+#end
+
+Given /^javascript minifying is disabled$/ do
+  Stylo::Config.options[:js_minifying_enabled] = false
+end
+
+Given /^javascript minifying is enabled$/ do
+  Stylo::Config.options[:js_minifying_enabled] = true
 end

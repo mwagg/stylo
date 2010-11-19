@@ -12,8 +12,8 @@ RSpec.configure do |config|
   config.include FileUtils
 
   config.before(:each) do
-    reset_paths
     Stylo::Config.reset_to_default
+    reset_paths
   end
 end
 
