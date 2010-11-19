@@ -6,7 +6,6 @@ module Stylo
       def pipeline
         [Stylo::PipelineSteps::Stylesheet.new,
          Stylo::PipelineSteps::Javascript.new,
-         Stylo::PipelineSteps::Sass.new,
          Stylo::PipelineSteps::JavascriptMinifying.new,
          Stylo::PipelineSteps::Caching.new]
       end
