@@ -1,5 +1,4 @@
 require 'rack/test'
-require 'sinatra'
 
 require File.join(File.dirname(__FILE__), '../../spec/spec_helper')
 
