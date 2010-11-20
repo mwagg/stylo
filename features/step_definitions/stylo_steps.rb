@@ -29,8 +29,8 @@ When /^the "([^\"]*)" header should be "([^\"]*)"$/ do |header_key, expected_val
 end
 
 Then /^the response should be from a call back into rack$/ do
-  last_response.status.should == 404
-  last_response.body.should include("Sinatra doesn't know this ditty.")
+  last_response.status.should == 200
+  last_response.body.should include("Hello World!")
 end
 
 When /^javascript combining is disabled$/ do

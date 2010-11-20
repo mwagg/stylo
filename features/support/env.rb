@@ -3,10 +3,6 @@ require 'sinatra'
 
 require File.join(File.dirname(__FILE__), '../../spec/spec_helper')
 
-class MyApp < Sinatra::Application
-
-end
-
 World do
   include Rack::Test::Methods
   include StyloSpecHelpers
@@ -15,7 +11,7 @@ World do
   def app
     @app ||= Rack::Builder.new do
       use Stylo::Rack
-      run MyApp
+      run Proc.new {|env| [200, {"Content-Type" => "text/html"}, "Hello World!"]}
     end
   end
 
