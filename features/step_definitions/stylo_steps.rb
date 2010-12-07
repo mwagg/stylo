@@ -52,3 +52,11 @@ end
 Given /^javascript minifying is enabled$/ do
   Stylo::Config.options[:js_minifying_enabled] = true
 end
+
+Given /^css minifying is enabled$/ do
+  Stylo::Config.options[:css_minifying_enabled] = true
+end
+
+Given /^css minifying is disabled$/ do
+  Stylo::Config.options[:css_minifying_enabled] = false
+end

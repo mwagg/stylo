@@ -1,4 +1,6 @@
 Feature: Stylesheet serving
+  Background:
+    Given css minifying is disabled
 
   Scenario: Simple stylesheet serving
     Given "child.css" is located at "stylesheets" in the asset location
@@ -51,3 +53,9 @@ Feature: Stylesheet serving
     """
     Cannot find referenced asset 'child.css'.
     """
+
+  Scenario: Stylesheet minification
+    Given css minifying is enabled
+    And "child.css" is located at "stylesheets" in the asset location
+    When a request is made for "stylesheets/child.css"
+    Then the response body should look like "minified_child.css"
