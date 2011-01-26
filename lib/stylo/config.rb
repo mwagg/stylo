@@ -10,7 +10,8 @@ module Stylo
           :css_combining_enabled => true,
           :js_combining_enabled => true,
           :js_minifying_enabled => true,
-          :css_minifying_enabled => true
+          :css_minifying_enabled => true,
+          :css_minifying_exclusions => []
         }
       end
 

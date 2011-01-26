@@ -59,3 +59,10 @@ Feature: Stylesheet serving
     And "child.css" is located at "stylesheets" in the asset location
     When a request is made for "stylesheets/child.css"
     Then the response body should look like "minified_child.css"
+
+  Scenario: Stylesheet minification exclusiong
+    Given css minifying is enabled
+    And "child.css" is located at "stylesheets" in the asset location
+    And "/stylesheets/child.css" is excluded from css minifying
+    When a request is made for "stylesheets/child.css"
+    Then the response body should look like "child.css"

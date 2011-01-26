@@ -41,10 +41,6 @@ When /^css combining is disabled$/ do
   Stylo::Config.options[:css_combining_enabled] = false
 end
 
-#Given /^javascript compression is enabled$/ do
-#  Stylo::Config.options[:javascript_minifying_enabled] = true
-#end
-
 Given /^javascript minifying is disabled$/ do
   Stylo::Config.options[:js_minifying_enabled] = false
 end
@@ -59,4 +55,8 @@ end
 
 Given /^css minifying is disabled$/ do
   Stylo::Config.options[:css_minifying_enabled] = false
+end
+
+Given /^"([^"]*)" is excluded from css minifying$/ do |stylesheet_file|
+  Stylo::Config.options[:css_minifying_exclusions] = [stylesheet_file]
 end
