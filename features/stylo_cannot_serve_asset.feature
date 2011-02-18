@@ -1,5 +1,5 @@
 Feature: Stylo cannot serve an asset
 
-  Scenario: Stylo calls back into rack
+  Scenario: Stylo returns a 404 response
     When a request is made for "javascripts/i-dont-exist.js"
-    Then the response should be from a call back into rack
+    Then the response should be a 404

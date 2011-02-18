@@ -34,7 +34,11 @@ module Stylo
     end
 
     def build
-      [200, headers, body]
+      [200, headers, self]
+    end
+
+    def each(&block)
+      block.call(body)
     end
   end
 

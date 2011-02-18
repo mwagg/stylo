@@ -28,9 +28,8 @@ When /^the "([^\"]*)" header should be "([^\"]*)"$/ do |header_key, expected_val
   last_response.headers[header_key].should == expected_value
 end
 
-Then /^the response should be from a call back into rack$/ do
-  last_response.status.should == 200
-  last_response.body.should include("Hello World!")
+Then /^the response should be a (\d+)$/ do |expected_status_code|
+  last_response.status.to_s.should == expected_status_code
 end
 
 When /^javascript combining is disabled$/ do

@@ -10,7 +10,7 @@ World do
   def app
     @app ||= Rack::Builder.new do
       use Stylo::Rack
-      run Proc.new {|env| [200, {"Content-Type" => "text/html"}, "Hello World!"]}
+      run Rack::File.new temp_path
     end
   end
 
